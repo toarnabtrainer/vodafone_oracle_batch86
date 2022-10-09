@@ -1,0 +1,166 @@
+
+- RDBMS --> collection  of logically related data and provides us application program to interact with this data.
+
+- SQL --> Structured Query Language used to interact with the db. --> Retrieving the data as well as manipulating the data (insert, update, delete)
+
+- ANSI accepted SQL as standard db lang.
+
+- RDBMS
+    - Oracle
+    - MySql
+    - PostGreSQL
+    - MS SQL Server
+    - DB2
+
+
+Oracle Architecture Components
+--------------------------------------------------------
+  - Oracle Instance - Logical Structure --> allocated memory
+        - SGA (System Global Area / Shared Global Area) --> collection of Memory Structures / Sub caches
+        - Background processes
+  - Oracle Database - Physical Structure --> collection of physical os files
+        - Data Files
+        - Control Files --> Metadata of db
+        - Redo Log Files --> used for recovery
+
+
+ORACLE_HOME = C:\app\product\12.1.0\dbhome_1
+
+SYSDBA --> privilege  --> SYS user
+
+Oracle Enviornments:
+   - Command Line Env.: SQLPLUS
+   - GUI - SQL Developer
+
+Tables
+-----------
+   - User tables
+   - Data Dictionary Tables / System Tables / System Catalog --> Metadata
+
+
+SQL Statement Stages
+------------------------------------
+  - Parse --> Syntax check and symantic check
+  - Bind
+  - Execute --> Multiple Execution Plan prepared 
+
+Shared Pool
+--------------------
+  - Parse Tree  --> holding parsing info for a particular SQL Statement
+      - Hard Parse
+      - Soft Parse
+  - Divided in two parts
+      - Library Cache - Holding info about last SQL or PLSQL statement
+            - Shared SQL Area
+            - Shared PLSQL Area
+      - Data Dictionary Cache
+
+Database Buffer Cache
+----------------------------------------
+  - Logical Read --> Reading from buffer cache
+  - Physical Read --> Reading from Data File.
+
+Dirty Blocks --> the blocks which are changed in DB buffer cache
+
+
+Database Service:
+  - oracleservice<dbname>
+        oracleservicemydb
+
+Shutdown Options
+-----------------------------------
+   - SHUTDOWN NORMAL
+   - SHUTDOWN IMMEDIATE
+   - SHUTDOWN TRANSACTIONAL
+   - SHUTDOWN ABORT
+
+Parameter File
+-------------------------
+    - SPFILE --> SPFILE<dbname>.ORA
+    - PFILE --> INIT<dbname>.ORA
+
+- Creating PFILE from SPFILE and vice a versa
+
+   CREATE <pfilepath and name> FROM <spfile path and name>;
+
+
+
+- Changes in the parameter at session level
+
+    ALTER SESSION SET <para.name> = <new val.>;
+
+- Changes in the parameter at system level
+        - changes in the running instance only
+        - changes in the SPFILE only
+        - changes in the running instance and SPFILE both
+
+    ALTER SYSTEM SET <para.name> = <new val.> [SCOPE = {MEMORY | SPFILE | BOTH}]
+
+
+Data Dictionary
+--------------------------
+   - DBA_
+   - ALL_
+   - USER_
+
+User Management, Privileges, Roles
+-----------------------------------------------------------
+
+Privileges
+---------------
+ - System privileges - given by a DBA to the users
+       - GRANT {<priv.list> | <role>} TO {<user list> | <role>} [WITH ADMIN OPTION];
+   - System Privileges --> CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE PROCEDURE .....
+ - Object privileges - given by a user on his/her own obj. to the other user
+       - GRANT {<priv.list> | <role>} ON <object name> TO {<user list> | <role>} [WITH GRANT OPTION];
+       - REVOKE {<priv.list> | <role>} ON <object name> FROM {<user list> | <role>};
+
+User
+-------
+   CREATE USER <username> IDENTIFIED BY <password> 
+      DEFAULT TABLESPACE <tablespace name> [QUOTA {UNLIMITED | <size in mb>} ON <tablespac name>];
+
+Role
+-------
+    CREATE ROLE <role name>;
+
+User Profiles
+--------------------
+   - Password Management
+     - FAILED_LOGIN_ATTEMPTS 3
+     - PASSWORD_LOCK_TIME
+     - PASSWORD_LIFE_TIME
+   - Resource Management
+      - SESSIONS_PER_USER
+      - IDLE_TIME
+ 
+- Creating a profile:  --> requires CREATE PROFILE system privilege
+  --------------------------------
+   CREATE PROFILE <profile name> LIMIT
+      <parameter list>
+   DROP PROFILE <profile name> [CASCADE];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
